@@ -9,9 +9,10 @@ Usage: python.exe Rename.py input-folder
 
 Example: python.exe Rename.py C:\Photos
 
-Details:  
+Behavior:  
  - Given a photo named "Photo Apr 01, 5 54 17 PM.jpg"  
  - with EXIF date taken of "4/1/2018 5:54:17 PM"  
+ - when you run this script on it's parent folder
  - then it will be renamed "20180401-175417.jpg"
 
 Notes:
