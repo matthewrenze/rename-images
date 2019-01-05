@@ -9,6 +9,11 @@ Usage: python.exe Rename.py input-folder
 
 Example: python.exe Rename.py C:\Photos
 
+Details:  
+ - Given a photo named "Photo Apr 01, 5 54 17 PM.jpg"  
+ - with EXIF date taken of "4/1/2018 5:54:17 PM"  
+ - then it will be renamed "20180401-175417.jpg"
+
 Notes:
   - For safety, please make a backup before running this script
   - Currently only designed to work with .jpg, .jpeg, and .png files
