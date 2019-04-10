@@ -5,9 +5,10 @@
 # Author: Matthew Renze
 
 # Usage: python.exe Rename.py input-folder
-#   - input-folder = the directory containing the image files to be renamed
+#   - input-folder = (optional) the directory containing the image files to be renamed
 
-# Example: python.exe Rename.py C:\Photos
+# Examples: python.exe Rename.py C:\Photos
+#           python.exe Rename.py
 
 # Behavior:
 #  - Given a photo named "Photo Apr 01, 5 54 17 PM.jpg"  
@@ -19,6 +20,7 @@
 #   - For safety, please make a backup before running this script
 #   - Currently only designed to work with .jpg, .jpeg, and .png files
 #   - EXIF metadata must exist or an error will occur
+#   - If you omit the input folder, then the current working directory will be used instead.
 
 # Import libraries
 import os
@@ -28,8 +30,13 @@ from PIL import Image
 # Set list of valid file extensions
 valid_extensions = [".jpg", ".jpeg", ".png"]
 
-# Get folder path from arguments
-folder_path = input_file_path = sys.argv[1]
+
+# If folder path argument exists then use it
+# Else use the current running folder
+if len(sys.argv) < 1:
+    folder_path = input_file_path = sys.argv[1]
+else:
+    folder_path = os.getcwd()
 
 # Get all files from folder
 file_names = os.listdir(folder_path)
