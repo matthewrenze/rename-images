@@ -19,7 +19,6 @@
 # Notes:
 #   - For safety, please make a backup before running this script
 #   - Currently only designed to work with .jpg, .jpeg, and .png files
-#   - EXIF metadata must exist or an error will occur
 #   - If you omit the input folder, then the current working directory will be used instead.
 
 # Import libraries
@@ -78,16 +77,10 @@ for file_name in file_names:
 
     # Close the image
     image.close()
-    
-    # Reformat the date taken to "YYYY-MM-DD HH-mm-ss"
-    date_taken = datetime.strptime(date_taken, "%Y:%m:%d %H:%M:%S")
-    date_time = date_taken.strftime("%Y-%m-%d %H-%M-%S")
 
-    # # Reformat the date taken to "YYYYMMDD-HHmmss"
-    # NOTE: Enable this code and disable the code above for this date-time format
-    # date_time = date_taken \
-    #     .replace(":", "")      \
-    #     .replace(" ", "-")
+    # Reformat the date taken to "YYYYMMDD-HHmmss"    
+    date_taken = datetime.strptime(date_taken, "%Y:%m:%d %H:%M:%S")
+    date_time = date_taken.strftime("%Y%m%d-%H%M%S")
     
     # Combine the new file name and file extension
     new_file_name = date_time + file_ext
