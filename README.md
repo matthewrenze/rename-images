@@ -9,13 +9,14 @@ Usage: python.exe Rename.py input-folder
 
 Example: python.exe Rename.py C:\Photos
 
-Behavior:  
- - Given a photo named "Photo Apr 01, 5 54 17 PM.jpg"  
- - with EXIF date taken of "4/1/2018 5:54:17 PM"  
- - when you run this script on its parent folder
- - then it will be renamed "20180401-175417.jpg"
+Behavior:
+  - Given a photo named "Photo Apr 01, 5 54 17 PM.jpg"  
+  - with EXIF date taken of "4/1/2018 5:54:17 PM"  
+  - when you run this script on its parent folder
+  - then it will be renamed "20180401-175417.jpg"
 
 Notes:
-  - For safety, please make a backup before running this script
+  - For safety, please make a backup of your photos before running this script
   - Currently only designed to work with .jpg, .jpeg, and .png files
-  - EXIF metadate must exist or an error will occur
+  - If you omit the input folder, then the current working directory will be used instead.
+
