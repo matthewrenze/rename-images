@@ -25,10 +25,11 @@
 # Import libraries
 import os
 import sys
+from datetime import datetime
 from PIL import Image
 
 # Set list of valid file extensions
-valid_extensions = [".jpg", ".jpeg", ".png"]
+valid_extensions = [".jpg", ".JPG", ".jpeg", ".JPEG", ".png", ".PNG"]
 
 
 # If folder path argument exists then use it
@@ -58,17 +59,36 @@ for file_name in file_names:
     # Open the image
     image = Image.open(old_file_path)
 
-    # Get the date taken from EXIF metadata
-    date_taken = image._getexif()[36867]
+    # Get the EXIF metadata
+    metadata = image._getexif()
+
+    # Check if metadata exists
+    if metadata is None:
+        print(f"EXIF metadata not found in file: {file_name}")
+        continue
+
+    # Get the date taken from the metadata
+    if 36867 in metadata.keys():
+        date_taken = metadata[36867]
+    elif 306 in metadata.keys():
+        date_taken = metadata[306]
+    else:
+        print(f"Date not found in file: {file_name}")
+        continue
 
     # Close the image
     image.close()
+    
+    # Reformat the date taken to "YYYY-MM-DD HH-mm-ss"
+    date_taken = datetime.strptime(date_taken, "%Y:%m:%d %H:%M:%S")
+    date_time = date_taken.strftime("%Y-%m-%d %H-%M-%S")
 
-    # Reformat the date taken to "YYYYMMDD-HHmmss"
-    date_time = date_taken \
-        .replace(":", "")      \
-        .replace(" ", "-")
-
+    # # Reformat the date taken to "YYYYMMDD-HHmmss"
+    # NOTE: Enable this code and disable the code above for this date-time format
+    # date_time = date_taken \
+    #     .replace(":", "")      \
+    #     .replace(" ", "-")
+    
     # Combine the new file name and file extension
     new_file_name = date_time + file_ext
 
@@ -77,6 +97,3 @@ for file_name in file_names:
 
     # Rename the file
     os.rename(old_file_path, new_file_path)
-
-
-
