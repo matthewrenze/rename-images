@@ -17,7 +17,7 @@
 #  - then it will be renamed "20180401-175417.jpg"
 
 # Notes:
-#   - For safety, please make a backup before running this script
+#   - For safety, please make a backup of your photos before running this script
 #   - Currently only designed to work with .jpg, .jpeg, and .png files
 #   - If you omit the input folder, then the current working directory will be used instead.
 
@@ -29,7 +29,6 @@ from PIL import Image
 
 # Set list of valid file extensions
 valid_extensions = [".jpg", ".JPG", ".jpeg", ".JPEG", ".png", ".PNG"]
-
 
 # If folder path argument exists then use it
 # Else use the current running folder
@@ -47,8 +46,7 @@ for file_name in file_names:
     # Get the file extension
     file_ext = os.path.splitext(file_name)[1]
 
-    # If the file does not have a valid file extension
-    # then skip it
+    # Skip files without a valid file extension
     if (file_ext not in valid_extensions):
         continue
 
@@ -61,7 +59,7 @@ for file_name in file_names:
     # Get the EXIF metadata
     metadata = image._getexif()
 
-    # Check if metadata exists
+    # Check if the metadata exists
     if metadata is None:
         print(f"EXIF metadata not found in file: {file_name}")
         continue
@@ -78,8 +76,11 @@ for file_name in file_names:
     # Close the image
     image.close()
 
-    # Reformat the date taken to "YYYYMMDD-HHmmss"    
+    # Get the date taken as a datetime object
     date_taken = datetime.strptime(date_taken, "%Y:%m:%d %H:%M:%S")
+
+    # Reformat the date taken to "YYYYMMDD-HHmmss"
+    # NOTE: Change this line to change the date/time format of the output filename
     date_time = date_taken.strftime("%Y%m%d-%H%M%S")
     
     # Combine the new file name and file extension

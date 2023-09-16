@@ -7,3 +7,6 @@
 !LICENSE
 !.gitignore
 
+# Exclude the _data folder
+!_test_images
+
