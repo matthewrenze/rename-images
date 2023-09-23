@@ -4,11 +4,11 @@
 
 # Author: Matthew Renze
 
-# Usage: python.exe Rename.py input-folder
+# Usage: python.exe rename.py input-folder
 #   - input-folder = (optional) the directory containing the image files to be renamed
 
-# Examples: python.exe Rename.py C:\Photos
-#           python.exe Rename.py
+# Examples: python.exe rename.py C:\Photos
+#           python.exe rename.py
 
 # Behavior:
 #  - Given a photo named "Photo Apr 01, 5 54 17 PM.jpg"  
