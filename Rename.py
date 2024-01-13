@@ -32,7 +32,7 @@ valid_extensions = [".jpg", ".JPG", ".jpeg", ".JPEG", ".png", ".PNG"]
 
 # If folder path argument exists then use it
 # Else use the current running folder
-if len(sys.argv) < 1:
+if len(sys.argv) > 1:
     folder_path = input_file_path = sys.argv[1]
 else:
     folder_path = os.getcwd()
