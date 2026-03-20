@@ -39,13 +39,13 @@ all_extensions = image_extensions + video_extensions
 # Function to get the date from image EXIF data
 def get_image_date(filepath):
     try:
-        img = Image.open(filepath)
-        exif_data = img._getexif()
-        if exif_data:
-            # EXIF DateTimeOriginal tag
-            date_str = exif_data.get(36867)
-            if date_str:
-                return datetime.strptime(date_str, "%Y:%m:%d %H:%M:%S")
+        with Image.open(filepath) as img:
+            exif_data = img.getexif()
+            if exif_data:
+                # EXIF DateTimeOriginal tag
+                date_str = exif_data.get(36867)
+                if date_str:
+                    return datetime.strptime(date_str, "%Y:%m:%d %H:%M:%S")
     except Exception as e:
         print(f"Error retrieving image date: {e}")
     return None
@@ -57,9 +57,10 @@ def get_video_date(filepath):
         if not parser:
             print(f"Unable to parse video file: {filepath}")
             return None
-        metadata = extractMetadata(parser)
-        if metadata and metadata.has("creation_date"):
-            return metadata.get("creation_date")
+        with parser:
+            metadata = extractMetadata(parser)
+            if metadata and metadata.has("creation_date"):
+                return metadata.get("creation_date")
     except Exception as e:
         print(f"Error retrieving video date: {e}")
     return None
