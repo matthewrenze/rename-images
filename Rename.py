@@ -42,8 +42,17 @@ def get_image_date(filepath):
         with Image.open(filepath) as img:
             exif_data = img.getexif()
             if exif_data:
-                # EXIF DateTimeOriginal tag
-                date_str = exif_data.get(36867)
+                # DateTimeOriginal (36867) and DateTimeDigitized (36868) are stored
+                # in the Exif sub-IFD (tag 34665), not the top-level IFD returned by
+                # getexif().  Use get_ifd() to reach them.
+                exif_ifd = exif_data.get_ifd(34665)
+
+                # Priority: DateTimeOriginal > DateTime (top-level) > DateTimeDigitized
+                date_str = (
+                    exif_ifd.get(36867)
+                    or exif_data.get(306)
+                    or exif_ifd.get(36868)
+                )
                 if date_str:
                     return datetime.strptime(date_str, "%Y:%m:%d %H:%M:%S")
     except Exception as e:
