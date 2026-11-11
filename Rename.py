@@ -97,6 +97,11 @@ def rename_files(input_folder):
 
                     # Rename file only if the new name is different
                     if new_filepath != filepath:
+                        if os.path.exists(new_filepath):
+                            # Another photo was taken in the same second;
+                            # skip instead of crashing or overwriting it.
+                            print(f"Skipped '{filename}' (target '{new_name}' already exists)")
+                            continue
                         os.rename(filepath, new_filepath)
                         print(f"Renamed '{filename}' to '{new_name}'")
                     else:
